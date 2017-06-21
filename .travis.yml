@@ -9,6 +9,11 @@ install:
   - pip install -r requirements.pip
 
 services:
-  - postgresql 
+  - postgresql
 
-script: python django_imager/manage.py test --noinput
+before_script:
+  - psql -c "create database test_db2;" -U postgres
+
+script: 
+  - python django_imager/manage.py migrate
+  - python django_imager/manage.py test

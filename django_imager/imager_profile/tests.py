@@ -2,6 +2,7 @@ from django.test import Client, RequestFactory, TestCase
 from bs4 import BeautifulSoup as soup
 from django.urls import reverse
 from imager_profile.views import home_view
+from django.contrib.auth.models import User
 # Create your tests here.
 
 
@@ -29,6 +30,18 @@ class ProfileViewTests(TestCase):
 
     # if the user is authenticated, show logout button
     def test_if_user_is_authenticated_shows_logout(self):
+        test_bob = User(username='bob')
+        test_bob.set_password('bobberton')
+        test_bob.save()
+        self.client.post(reverse('login'), {'username': 'bob', 'password': 'bobberton'})
         response = self.client.get(reverse('home'))
         self.assertFalse(b'login' in response.content.lower())
         self.assertTrue(b'logout' in response.content.lower())
+
+    def test_if_user_is_authenticated_and_logsout_theyre_no_longer_authenticated(self):
+        test_bob = User(username='bob')
+        test_bob.set_password('bobberton')
+        test_bob.save()
+        self.client.post(reverse('login'), {'username': 'bob', 'password': 'bobberton'})
+        response = self.client.get(reverse('logout'), follow=True)
+        self.assertTrue(b'login' in response.content.lower())
