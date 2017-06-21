@@ -4,6 +4,10 @@ python:
 
 env:
   - SECRET_KEY='mashedpotatoes'
+  - DATABASE_NAME='django_lender'
+  - DATABASE_USER='Nick'
+  - DATABASE_HOST="127.0.0.1"
+  - DATABASE_PASSWORD=''
 
 install:
   - pip install -r requirements.pip
@@ -12,7 +16,7 @@ services:
   - postgresql
 
 before_script:
-  - psql -c "create database test_db2;" -U postgres
+  - psql -c "create database django_lender;" -U postgres
 
 script: 
   - python django_imager/manage.py migrate
