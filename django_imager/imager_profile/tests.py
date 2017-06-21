@@ -1,7 +1,7 @@
 from django.test import Client, RequestFactory, TestCase
 from bs4 import BeautifulSoup as soup
 from django.urls import reverse
-
+from imager_profile.views import home_view
 # Create your tests here.
 
 
@@ -17,5 +17,18 @@ class ProfileViewTests(TestCase):
         self.assertTrue(b'a href="/" class="icon-home"' in response.content)
 
     # test the home view context has an empty dictionary
+    def test_home_view_returns_status_code_200(self):
+        get_req = self.req_factory.get('/foo')
+        response = home_view(get_req)
+        self.assertTrue(response.status_code == 200)
+
     # if the user isn't authenticated, show login button
+    def test_if_user_isnt_authenticated_shows_login(self):
+        response = self.client.get(reverse('home'))
+        self.assertTrue(b'login' in response.content.lower())
+
     # if the user is authenticated, show logout button
+    def test_if_user_is_authenticated_shows_logout(self):
+        response = self.client.get(reverse('home'))
+        self.assertFalse(b'login' in response.content.lower())
+        self.assertTrue(b'logout' in response.content.lower())

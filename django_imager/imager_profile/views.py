@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 
 def home_view(request):
     """Home view callable, for the home page."""
-    context = {}
+    context = {'food': 'steak'}
     return render(request, 'django_imager/home.html', context=context)
 
 
