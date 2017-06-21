@@ -3,7 +3,7 @@ python:
   - "3.6"
 
 env:
-  - SECRET_KEY='mashedpotatoes' DATABASE_NAME='django_lender' DATABASE_USER='Nick' DATABASE_HOST="127.0.0.1" DATABASE_PASSWORD=''
+  - SECRET_KEY='mashedpotatoes' DATABASE_NAME='django_lender' DATABASE_USER='postgres' DATABASE_HOST="127.0.0.1" DATABASE_PASSWORD=''
 
 install:
   - pip install -r requirements.pip
