@@ -16,4 +16,4 @@ before_script:
 
 script: 
   - python django_imager/manage.py migrate
-  - python django_imager/manage.py test
+  - python django_imager/manage.py test --no-input
